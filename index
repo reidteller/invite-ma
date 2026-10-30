@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite de um Dia Especial</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .phone-container {
+      width: 360px;
+      height: 700px;
+      background: linear-gradient(180deg, #d32f2f 0%, #8e0000 100%);
+      border-radius: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 8px solid #222;
+    }
+
+    .phone-container::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      width: 120px;
+      height: 25px;
+      background-color: #222;
+      border-radius: 15px;
+      z-index: 10;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .emoji {
+      font-size: 76px;
+      margin-bottom: 20px;
+      animation: pulse 1.8s infinite;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+
+    .subtitle {
+      max-width: 280px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 24px;
+      position: relative;
+      width: 100%;
+      min-height: 60px;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    button,
+    .btn {
+      background-color: #fff;
+      color: #d32f2f;
+      border: none;
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover,
+    .btn:hover {
+      transform: scale(1.06);
+      background: #ffecec;
+    }
+
+    #noButton {
+      position: relative;
+    }
+
+    .details {
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    .detail-card {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 12px;
+      margin: 9px 0;
+      backdrop-filter: blur(5px);
+    }
+
+    .detail-card strong {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 3px;
+    }
+
+    .detail-card span {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .time-box {
+      min-width: 52px;
+      padding: 8px 5px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .time-box strong {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .time-box small {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .confirmation {
+      margin-top: 14px;
+      font-size: 0.86rem;
+      opacity: 0.9;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -30px;
+      font-size: 22px;
+      animation: floatUp 4s linear forwards;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    .shake {
+      animation: shake 0.35s ease;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to { transform: translateY(-760px) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    @media (max-width: 400px) {
+      .phone-container {
+        width: 100vw;
+        height: 100vh;
+        min-height: 620px;
+        border-radius: 0;
+        border: none;
+      }
+
+      body {
+        overflow: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="phone-container" id="phone">
+    <section class="screen" id="welcomeScreen">
+      <div class="emoji">💌</div>
+
+      <h1>Você recebeu um convite irrecusável!</h1>
+
+      <p class="subtitle">
+        Existe um momento especial esperando por você.
+      </p>
+
+      <p>Você aceita participar?</p>
+
+      <div class="btn-group">
+        <button id="yesButton">Sim, eu aceito MA! 💖</button>
+        <button id="noButton">Não</button>
+      </div>
+    </section>
+
+    <section class="screen hidden" id="detailsScreen">
+      <div class="emoji">🥰</div>
+
+      <h2>Sabia que não recusaria mb!</h2>
+
+      <p class="subtitle">
+        Prepare-se para viver um momento inesquecível.
+      </p>
+
+      <div class="details">
+        <div class="detail-card">
+          <strong>Ocasião</strong>
+          <span id="eventName">Tarde de bate papo e jantar</span>
+        </div>
+
+        <div class="detail-card">
+          <strong>Data</strong>
+          <span id="eventDate">06 de novembro de 2026</span>
+        </div>
+
+        <div class="detail-card">
+          <strong>Horário</strong>
+          <span id="eventTime">12h30</span>
+        </div>
+
+        <div class="detail-card">
+          <strong>Local</strong>
+          <span id="eventLocation">Encontro em Sepetiba City, depois Lagoa/Botafogo</span>
+        </div>
+      </div>
+
+      <div class="countdown" aria-label="Contagem regressiva">
+        <div class="time-box">
+          <strong id="days">00</strong>
+          <small>Dias</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="hours">00</strong>
+          <small>Horas</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="minutes">00</strong>
+          <small>Min</small>
+        </div>
+
+        <div class="time-box">
+          <strong id="seconds">00</strong>
+          <small>Seg</small>
+        </div>
+      </div>
+
+      <a
+        class="btn"
+        id="confirmButton"
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Confirmar presença 💬
+      </a>
+
+      <p class="confirmation">
+        Espero você! ❤️
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const invitation = {
+      eventName: "Tarde de bate papo e jantar",
+      eventTime: "12h30",
+      eventLocation: "Encontro em Sepetiba City, depois Lagoa/Botafogo",
+      targetDate: new Date(2026, 10, 6, 12, 30, 0), // mês 10 = novembro
+      whatsapp: "5521996378757"
+    };
+
+    invitation.eventDate = invitation.targetDate.toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    }); // "06 de novembro de 2026"
+
+    const phone = document.getElementById("phone");
+    const welcomeScreen = document.getElementById("welcomeScreen");
+    const detailsScreen = document.getElementById("detailsScreen");
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+    const confirmButton = document.getElementById("confirmButton");
+
+    const eventName = document.getElementById("eventName");
+    const eventDate = document.getElementById("eventDate");
+    const eventTime = document.getElementById("eventTime");
+    const eventLocation = document.getElementById("eventLocation");
+
+    eventName.textContent = invitation.eventName;
+    eventDate.textContent = invitation.eventDate;
+    eventTime.textContent = invitation.eventTime;
+    eventLocation.textContent = invitation.eventLocation;
+
+    const whatsappMessage = encodeURIComponent(
+      `Oii ma! Eu confirmo minha presença no evento "${invitation.eventName}" love u.`
+    );
+
+    confirmButton.href = `https://wa.me/${invitation.whatsapp}?text=${whatsappMessage}`;
+
+    yesButton.addEventListener("click", () => {
+      welcomeScreen.classList.add("hidden");
+      detailsScreen.classList.remove("hidden");
+      detailsScreen.classList.add("fade-in");
+      createHearts(22);
+    });
+
+    noButton.addEventListener("mouseenter", moveNoButton);
+    noButton.addEventListener("touchstart", moveNoButton, { passive: false });
+
+    function moveNoButton(event) {
+      event.preventDefault();
+
+      const containerWidth = phone.clientWidth;
+      const containerHeight = phone.clientHeight;
+
+      const maxX = Math.max(20, containerWidth - noButton.offsetWidth - 30);
+      const maxY = Math.max(100, containerHeight - noButton.offsetHeight - 100);
+
+      const randomX = Math.floor(Math.random() * maxX) - containerWidth / 2 + 50;
+      const randomY = Math.floor(Math.random() * maxY) - containerHeight / 2 + 100;
+
+      noButton.style.position = "absolute";
+      noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      phone.classList.remove("shake");
+      void phone.offsetWidth;
+      phone.classList.add("shake");
+    }
+
+    function createHearts(amount = 10) {
+      for (let i = 0; i < amount; i++) {
+        setTimeout(() => {
+          const heart = document.createElement("span");
+
+          heart.className = "heart";
+          heart.textContent = ["❤️", "💖", "💕", "💗", "💘"][Math.floor(Math.random() * 5)];
+
+          heart.style.left = `${Math.random() * 94}%`;
+          heart.style.animationDuration = `${3 + Math.random() * 3}s`;
+          heart.style.fontSize = `${16 + Math.random() * 18}px`;
+
+          phone.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 6500);
+        }, i * 120);
+      }
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = invitation.targetDate.getTime() - now;
+
+      if (distance <= 0) {
+        ["days", "hours", "minutes", "seconds"].forEach(id => {
+          document.getElementById(id).textContent = "00";
+        });
+
+        if (!document.getElementById("bigDay")) {
+          document.querySelector(".countdown").insertAdjacentHTML(
+            "afterend",
+            "<p class='confirmation' id='bigDay'>Hoje é o grande dia! 🎉</p>"
+          );
+        }
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = String(days).padStart(2, "0");
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
